@@ -1,0 +1,7 @@
+
+demucs==4.0.1
+redis>=5.0,<7
+boto3>=1.34,<2
+requests>=2.31,<3
+numpy<2
+
