@@ -1,0 +1,6 @@
+flask>=3.0,<4
+gunicorn>=22,<24
+redis>=5,<7
+boto3>=1.34,<2
+requests>=2.31,<3
+jsonpickle>=3,<5
