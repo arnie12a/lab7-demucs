@@ -1,3 +1,25 @@
-rustfs-credentials.yaml
+# Credentials
 .env
+.env.*
 rustfs-credentials.yaml
+*secret*.yaml
+
+# Python environment
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Generated audio
+output/
+
+# Demucs models
+*.th
+*.pt
+*.pth
+models/
+
+# Temporary files
+*.log
+*.tmp
+last-*-hash.txt

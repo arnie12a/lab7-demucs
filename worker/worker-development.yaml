@@ -1,0 +1,62 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demucs-worker
+  namespace: default
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: demucs-worker
+
+  template:
+    metadata:
+      labels:
+        app: demucs-worker
+
+    spec:
+      containers:
+        - name: worker
+          image: us-central1-docker.pkg.dev/arka-lab5-2026/demucs-images/worker:v2
+          imagePullPolicy: IfNotPresent
+
+          env:
+            - name: REDIS_HOST
+              value: "redis"
+
+            - name: REDIS_PORT
+              value: "6379"
+
+            - name: S3_ENDPOINT
+              value: "http://rustfs-svc.rustfs.svc.cluster.local:9000"
+
+            - name: INPUT_BUCKET
+              value: "queue"
+
+            - name: OUTPUT_BUCKET
+              value: "output"
+
+            - name: S3_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: worker-rustfs-credentials
+                  key: S3_ACCESS_KEY
+
+            - name: S3_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: worker-rustfs-credentials
+                  key: S3_SECRET_KEY
+
+          resources:
+            requests:
+              memory: "6Gi"
+              cpu: "1000m"
+
+            limits:
+              memory: "10Gi"
+              cpu: "3000m"
+
